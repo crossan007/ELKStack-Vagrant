@@ -5,9 +5,11 @@ Vagrant.configure(2) do |config|
   
    config.vm.box = "ubuntu14_04"
    config.vm.network "forwarded_port", guest: 80, host: 8080
+    config.vm.network "forwarded_port", guest: 5044, host: 5044
    config.vm.network "private_network", ip: "192.168.33.10"
    config.vm.synced_folder "logstash/", "/etc/logstash"
    config.vm.synced_folder "elastisearch/", "/etc/elastisearch"
+   config.vm.synced_folder "certs/", "/etc/pki/tls/certs"
 
    config.vm.provider "virtualbox" do |vb|
 		vb.gui = true
@@ -27,6 +29,7 @@ Vagrant.configure(2) do |config|
 	echo debconf shared/accepted-oracle-license-v1-1 seen true | sudo debconf-set-selections
 	sudo apt-get -y install oracle-java8-installer
 	sudo apt-get -y install elasticsearch
+	sudo service elasticsearch restart
 	sudo update-rc.d elasticsearch defaults 95 10
 	sudo apt-get -y install kibana
 	sudo update-rc.d kibana defaults 96 9
