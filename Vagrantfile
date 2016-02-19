@@ -17,6 +17,10 @@ Vagrant.configure(2) do |config|
 	end
 
   config.vm.provision "shell", inline: <<-SHELL 
+	#/etc/default/elasticsearch (on CentOS/RH: /etc/sysconfig/elasticsearch ):
+	#ES_HEAP_SIZE=512m
+	#MAX_OPEN_FILES=65535
+	#MAX_LOCKED_MEMORY=unlimited
 	sudo apt-get update
 	sudo apt-get -y install software-properties-common unzip
 	sudo add-apt-repository -y ppa:webupd8team/java
