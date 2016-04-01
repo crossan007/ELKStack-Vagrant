@@ -58,6 +58,11 @@ Vagrant.configure(2) do |config|
 	curl -O https://raw.githubusercontent.com/elastic/filebeat/master/etc/filebeat.template.json
 	curl -XPUT 'http://localhost:9200/_template/filebeat?pretty' -d@filebeat.template.json
 	curl -XPUT 'http://localhost:9200/_template/filebeat?pretty' -d@filebeat.template.json
+	sudo apt-get install python-pip
+	sudo pip install elasticsearch-curator
+	#https://www.elastic.co/guide/en/elasticsearch/client/curator/current/index.html
+	#ADD 20 0 * * * curator delete indices --older-than 14 --time-unit days --timestring %Y.%m.%d
+	#curator delete indices --older-than 14 --time-unit days --timestring %Y.%m.%d
 
    SHELL
 end
